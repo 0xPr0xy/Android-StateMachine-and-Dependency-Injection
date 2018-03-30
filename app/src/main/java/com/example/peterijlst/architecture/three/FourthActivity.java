@@ -1,10 +1,7 @@
-package com.example.peterijlst.architecture.two;
+package com.example.peterijlst.architecture.three;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.peterijlst.architecture.R;
@@ -12,14 +9,15 @@ import com.example.peterijlst.architecture.application.MyApplication;
 
 import javax.inject.Inject;
 
-public class SecondActivity extends AppCompatActivity {
+public class FourthActivity extends AppCompatActivity {
 
-    @Inject SecondActivityController controller;
+    @Inject
+    protected FourthActivityController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_fourth);
 
         controller.announce(findViewById(android.R.id.content));
 
@@ -28,7 +26,7 @@ public class SecondActivity extends AppCompatActivity {
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                application.stateMachine.nextState();
+                application.stateMachine.previousState();
             }
         });
     }

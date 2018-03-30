@@ -1,5 +1,7 @@
 package com.example.peterijlst.architecture.statemachine.containers;
 
+import com.example.peterijlst.architecture.three.FourthActivityController;
+import com.example.peterijlst.architecture.three.FourthActivityService;
 import com.example.peterijlst.architecture.three.ThirdActivityController;
 import com.example.peterijlst.architecture.three.ThirdActivityService;
 
@@ -15,5 +17,13 @@ public class StateThreeContainer {
 
     @Provides static ThirdActivityService provideThirdActivityService() {
         return new ThirdActivityService();
+    }
+
+    @Provides static FourthActivityController provideFourthActivityController(FourthActivityService service) {
+        return new FourthActivityController(service);
+    }
+
+    @Provides static FourthActivityService provideFourthActivityService() {
+        return new FourthActivityService();
     }
 }
