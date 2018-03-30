@@ -15,6 +15,25 @@ interface Injector {
     void inject(Activity activity);
 }
 ```
+
+Example State Injector:
+
+```
+public class StateTwoInjector implements Injector {
+    @Override
+    public void inject(Activity activity) {
+        StateTwoComponent component = DaggerStateTwoComponent
+                .builder()
+                .stateTwoContainer(new StateTwoContainer())
+                .build();
+        if (activity instanceof SecondActivity) {
+            component.inject((SecondActivity) activity);
+        }
+    }
+}
+
+```
+
 ## Router
 The router is used for a certain state to determine what activity to launch from another activity.
 Or, in case that it is a transition to a new state, launch the initial activity.
@@ -23,6 +42,26 @@ Or, in case that it is a transition to a new state, launch the initial activity.
 interface Router {
     void route(Context context);
     void route(Activity from);
+}
+```
+
+Example State Router:
+
+```
+public class StateThreeRouter implements Router {
+    @Override
+    public void route(Context context) {
+        Intent initialIntent = new Intent(context, ThirdActivity.class);
+        context.startActivity(initialIntent);
+    }
+
+    @Override
+    public void route(Activity from) {
+        if (from instanceof ThirdActivity) {
+            Intent initialIntent = new Intent(from, FourthActivity.class);
+            from.startActivity(initialIntent);
+        }
+    }
 }
 ```
 
