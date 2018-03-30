@@ -7,6 +7,27 @@ The statemachine is used to transition between states, and launch the initial ac
 It also has a method `nextActivity(Activity from)` that is used either from a launched activity when it is done, or from a state machine transition passing `null` to launch that state's the initial activity
 This results in Activities being unaware of other activities, and small states with their own routing and dependency container.
 
+Activity Routing:
+
+```
+public void nextActivity(Activity from) {
+    if (from != null) {
+        activityRouters.get(machine.getCurrentState()).route(from);
+    } else {
+        activityRouters.get(machine.getCurrentState()).route(context);
+    }
+}
+```
+
+Activity DI:
+
+```
+public void activityStarted(Activity activity) {
+    activityInjectors.get(machine.getCurrentState()).inject(activity);
+
+}
+```
+
 ## Injector
 The injector is used for a certain state's dependency container (Dagger2 Component per state), to inject the activities dependencies.
 
